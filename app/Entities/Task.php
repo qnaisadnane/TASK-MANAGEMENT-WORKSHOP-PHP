@@ -1,6 +1,6 @@
 <?php
 
-abstract Class Task{
+abstract Class Task implements Assignable , Commentable , Prioritizable{
 
     protected $id;
     protected $title;
@@ -10,6 +10,7 @@ abstract Class Task{
     protected $reporterId;
     protected $priority;
     protected $status;
+    protected $comment;
     protected $estimatedHours;
     protected $actualHours;
     protected $dueDate;
@@ -33,6 +34,37 @@ abstract Class Task{
         $this->updatedAt = $updatedAt;
     }
     
+    abstract public function calculateComplexity():int;
+
+    abstract public function getRequiredSkills():array;
+
+    public function assignTo(int $userId):void{
+        $this->assigneeId = $userId;
+    };
+
+    public function unassign():void{
+        $this->assigneeId = null;
+    };
+
+    public function isAssigned():bool{
+        return $this->assigneeId !== null;
+    };
+
+    public function hasComment():bool{
+
+    };
+
+    public function addComment(string $comment):void{
+
+    };
+
+    public function getComment():string;
+
+    public function isPriority():bool;
+
+    public function isPrioritizable():bool;
+
+    public function setPriority(string $priority):void;
 
     public function getId(){
         return $this->id;

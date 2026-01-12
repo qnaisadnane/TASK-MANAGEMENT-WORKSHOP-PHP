@@ -2,18 +2,18 @@
 
 namespace App\Entities;
 
-Class Developer extends TeamMember{
+Class Tester extends TeamMember{
 
     public function canCreateProject():bool{
         return false;
-    }
+    };
 
     public function canAssignTasks():bool{
         return false;
-    }
+    };
 
     public function canRolePermissions():array{
-        return['work_on_task'];
-    }
-
+        return['test_task','view_task'];
+    };
+    
 }

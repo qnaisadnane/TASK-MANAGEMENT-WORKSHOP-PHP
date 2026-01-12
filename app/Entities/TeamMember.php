@@ -1,18 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
+namespace App\Entities;
+
 abstract Class TeamMember{
     protected $id;
     protected $username;
     protected $email;
+    protected $password;
     protected $teamId;
     protected $createdAt;
 
-    public function __construct($id, $username, $email, $teamId, $createdAt){
+    public function __construct($id, $username, $email, $password, $teamId, $createdAt){
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
+        $this->password = $password;
         $this->teamId = $teamId;
-        $this->createdAt = $createdAt;
+        $this->createdAt = date('Y-m-d');
     }
 
     public function getId(){
@@ -31,14 +37,18 @@ abstract Class TeamMember{
         return $this->createdAt;
     }
 
-    public function canCreateProject();
+    abstract public function canCreateProject():bool;
 
-    public function canAssignTasks();
+    abstract public function canAssignTasks():bool;
 
-    public function canRolePermissions();
+    abstract public function canRolePermissions():array;
 
-    public function verifyPassword();
-
-    public function setPassword();
+    
+    public function verifyPassword(string $password):bool{
+        return password_verify($password , $this->password)
+    }
+    public function setPassword():void{
+        $this->password = password_hash($password , PASSWORD_DEFAULT);
+    }
 
 }

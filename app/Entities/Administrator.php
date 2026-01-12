@@ -2,18 +2,18 @@
 
 namespace App\Entities;
 
-Class Developer extends TeamMember{
+Class Administrator extends TeamMember{
 
     public function canCreateProject():bool{
-        return false;
-    }
+        return true;
+    };
 
     public function canAssignTasks():bool{
-        return false;
-    }
+        return true;
+    };
 
     public function canRolePermissions():array{
-        return['work_on_task'];
-    }
-
+        return['manage_teams', 'manage_users'];
+    };
+    
 }
